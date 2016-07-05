@@ -8,8 +8,8 @@ Google design starter kit with Polymer
 
 ``` bash
 
-git clone https://github.com/ellipticaljs/google-design-starter-kit.git
-mv google-design-starter-kit my-project
+git clone https://github.com/ellipticaljs/google-design.git
+mv google-design my-project
 cd my-project
 npm install
 bower install
