@@ -1,0 +1,443 @@
+<style>
+    @media (min-width: 1025px){
+        app-header ~ section{
+          padding-top:15em;
+          min-height:700px;
+        }
+        app-header ~ section.content{
+            padding-top:19em;
+        }
+        ui-topbar + *{
+            margin-top:70px;
+        }
+        .search-overlay{
+            z-index: 1500;
+            background: rgba(33,34,34,.96);
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            left: 0;
+            top: 0;
+            color: #888;
+        }
+        .search-overlay-inner{
+            display:flex;
+            width:900px;
+            margin:0 auto;
+            min-height:500px;
+            margin-top:3em;
+            justify-content:space-between;
+        }
+        .search-overlay-inner textarea{
+            border: none;
+            outline: none;
+            background: none;
+            padding: 0;
+            white-space: pre-wrap!important;
+            word-wrap: break-word;
+            color: #f2f2f2;
+            resize: none;
+            width: 600px;
+            overflow: hidden;
+            font-size:70px;
+            line-height: 60px;
+            height:150px;
+            font-family:'robotoregular';
+        }
+        .search-overlay-inner textarea::placeholder{
+            color:#666 !important;
+        }
+        .search-overlay-inner textarea::-webkit-input-placeholder{
+            color:#666 !important;
+        }
+        .search-overlay-inner textarea::-moz-placeholder{
+            color:#666 !important;
+        }
+        .search-overlay-inner textarea:-ms-input-placeholder{
+            color:#666 !important;
+        }
+        .search-overlay-inner textarea:focus{
+            outline:none !important;
+            border:0 !important;
+        }
+        .search-overlay-inner .search-icon{
+            font-size:48px;
+            cursor:pointer;
+            color:#7A7B7B;
+        }
+        .search-overlay-inner .search-icon:hover{
+            color:#fff;
+        }
+    }
+    @media (max-width: 1024px) {
+        ui-topbar{
+            height:60px !important;
+            box-shadow:0 2px 5px rgba(0,0,0,0.26) !important;
+        }
+        .topbar-section{
+            display:none;
+        }
+        app-header ~ section{
+            padding-top:45px;
+        }
+        app-header ~ section.content{
+            padding-top:100px;
+        }
+        app-header .fake-shadow{
+            display:none;
+        }
+    }
+</style>
+<dom-module id="app-header">
+    <style>
+        :host{
+            width:100%;
+            position:absolute;
+            z-index:999;
+        }
+
+        :host .fake-shadow{
+            background-image: url(/images/shadow.png);
+            background-repeat: repeat-x;
+            background-size: 1px 12px;
+            height: 12px;
+            width:100%;
+        }
+        :host ::content [header-title]{
+            margin-left:.5em;
+        }
+        :host ::content [home]{
+            cursor:pointer;
+        }
+        :host .fake-shadow.fixed{
+            position:fixed;
+            top:70px;
+            left:0;
+        }
+        :host ui-toggle:before{
+            color:#fff;
+        }
+        :host .topbar-section{
+            color:#fff;
+            min-height:200px;
+            padding-top:40px;
+        }
+
+        :host>ui-topbar{
+            border:0;
+            height:70px;
+        }
+        :host>ui-topbar{
+            border:0;
+            height:70px;
+        }
+        :host>ui-topbar ui-brand{
+            position:relative !important;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+        }
+        :host *{
+            color:#fff;
+        }
+
+        :host.dark *{
+            color:rgba(0, 0, 0, 0.701961) !important;
+        }
+
+        :host.dark ui-toggle:before{
+            color:rgba(0, 0, 0, 0.701961);
+        }
+
+        :host.dark .topbar-section{
+            color:rgba(0, 0, 0, 0.701961);
+            min-height:200px;
+            padding-top:40px;
+        }
+        :host ui-topbar ::content ui-menu{
+            margin-right:2em;
+        }
+        :host ui-topbar ::content ui-menu ui-dropdown{
+            border:0;
+            box-shadow:0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+            top:85%;
+        }
+        :host ui-topbar ::content menu-item{
+            border-bottom:2px solid transparent;
+        }
+        :host ui-topbar ::content menu-item-dropdown{
+            border-bottom:2px solid transparent;
+        }
+        :host ui-topbar ::content menu-item:hover{
+            border-bottom:2px solid #fff;
+        }
+        :host ui-topbar ::content menu-item-dropdown:hover{
+            border-bottom:2px solid #fff;
+        }
+        :host.dark ui-topbar ::content ui-menu>menu-item:hover{
+            border-bottom:2px solid rgba(0, 0, 0, 0.701961);
+        }
+        :host.dark ui-topbar ::content ui-menu>menu-item-dropdown:hover{
+            border-bottom:2px solid rgba(0, 0, 0, 0.701961);
+        }
+        :host ui-topbar ::content menu-item.active{
+            border-bottom:2px solid #fff;
+        }
+        :host ui-topbar ::content menu-item-dropdown.active{
+            border-bottom:2px solid #fff;
+        }
+        :host.dark ui-topbar ::content menu-item.active{
+            border-bottom:2px solid rgba(0, 0, 0, 0.701961);
+        }
+        :host.dark ui-topbar ::content menu-item-dropdown.active{
+            border-bottom:2px solid rgba(0, 0, 0, 0.701961);
+        }
+        :host ui-topbar ::content ui-menu>menu-item>a{
+            color:#fff;
+            font-size:14px;
+            text-transform: uppercase;
+            font-family:'robotomedium';
+        }
+        :host ui-topbar ::content ui-menu>menu-item-dropdown>a{
+            color:#fff;
+            font-size:14px;
+            text-transform: uppercase;
+            font-family:'robotomedium';
+        }
+        :host.dark ui-topbar ::content ui-menu>menu-item>a{
+            color:rgba(0, 0, 0, 0.701961);
+        }
+        :host.dark ui-topbar ::content ui-menu>menu-item-dropdown>a{
+            color:rgba(0, 0, 0, 0.701961);
+        }
+        :host ui-topbar ::content ui-menu>menu-item>a:hover{
+            color:rgba(255, 255, 255, 1);
+        }
+        :host.dark ui-topbar ::content ui-menu>menu-item>a:hover{
+            color:rgba(0, 0, 0, 0.701961);
+        }
+        :host ui-topbar ::content ui-menu>menu-item-dropdown>a:hover{
+            color:rgba(255, 255, 255, 1);
+        }
+        :host.dark ui-topbar ::content ui-menu>menu-item-dropdown>a:hover{
+            color:rgba(0, 0, 0, 0.701961);
+        }
+        :host ::content md-more{
+            visibility: hidden;
+        }
+
+    </style>
+    <template>
+        <ui-topbar id="topbar">
+            <touch-drawer>
+                <touch-header>
+                    <ui-search>
+                        <input type="text" placeholder="search">
+                    </ui-search>
+                </touch-header>
+            </touch-drawer>
+            <touch-bar>
+                <ui-toggle></ui-toggle>
+                <ui-brand>
+                    <content select="[touch-brand]"></content>
+                </ui-brand>
+                <touch-icons>
+                    <touch-icon>
+                        <content select="md-more"></content>
+                    </touch-icon>
+                </touch-icons>
+            </touch-bar>
+            <section class="space-between">
+                <ui-brand class="left">
+                   <content select="[brand]"></content>
+                </ui-brand>
+                <content select="ui-menu"></content>
+            </section>
+        </ui-topbar>
+        <section class="topbar-section" style="background:#ea4335;">
+            <grid-row>
+                <grid-columns class="default-12">
+                    <content select="[header-title]"></content>
+                </grid-columns>
+            </grid-row>
+        </section>
+        <div class="fake-shadow"></div>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is:'app-header',
+        properties:{
+            background:{
+                type:String,
+                value:'#ea4335'
+            },
+            moreIcon:{
+                type:String,
+                value:'#fff'
+            },
+            searchContainer:{
+                type:String,
+                value:'ui-container'
+            },
+            homeUrl:{
+                type:String,
+                value:null
+            },
+            _shadow:{
+                type:Object,
+                value:null
+            },
+            _tl:{
+                type:Object,
+                value:null
+            },
+            _fadeStatus:{
+                type:Boolean,
+                value:false
+            },
+            _searchContainer:{
+                type:Object,
+                value:null
+            },
+            _searchElement:{
+                type:Object,
+                value:null
+            },
+            _searchInput:{
+                type:Object,
+                value:null
+            },
+            _element:{
+                type:Object,
+                value:null
+            }
+
+        },
+
+        ready:function(){
+            this._element=$(this);
+            var fakeShadow=document.querySelector('.fake-shadow');
+            this._setBackground();
+            this._setMoreIconColor();
+            this._shadow=fakeShadow;
+            this._tl=new TimelineMax();
+            var screenWidth=window.innerWidth;
+            if(this.homeUrl) this.$.topbar.setAttribute('home-url',this.homeUrl);
+            if(screenWidth>1024) {
+                this._scrollListener();
+                this._searchListener();
+            }
+        },
+
+        _scrollListener:function(){
+            var handleScroll=this._handleScroll.bind(this);
+            var bindScroll=function(){
+                window.requestAnimationFrame(handleScroll);
+            };
+            $(window).on('scroll.top',bindScroll);
+        },
+
+        _handleScroll:function(){
+            var y=window.scrollY;
+            if(y>=200){
+                this._shadow.classList.add('fixed');
+            }else{
+                this._shadow.classList.remove('fixed');
+            }
+            if(y>10 && !this._fadeStatus){
+                this._fadeStatus=true;
+                this._fadeOutHeader();
+            }else if(y<=10 && this._fadeStatus){
+                this._fadeStatus=false;
+                this._fadeInHeader();
+            }
+        },
+
+        _fadeInHeader:function(){
+            this._tl.to('[header-title]',.3,{opacity:1,ease:Power2.easeOut});
+        },
+
+        _fadeOutHeader:function(){
+            this._tl.to('[header-title]',.3,{opacity:0,ease:Power2.easeOut});
+        },
+
+        _setBackground:function(){
+            var topbar=this.querySelector('ui-topbar');
+            var section=this.querySelector('.topbar-section');
+            topbar.style.background=this.background;
+            section.style.background=this.background;
+        },
+
+        _setMoreIconColor:function(){
+            var self=this;
+            setTimeout(function(){
+                var mdMore=self.querySelector('md-more');
+                mdMore.setIconColor(self.moreIcon);
+                mdMore.style.visibility='visible';
+            },750);
+
+        },
+
+        _searchListener:function(){
+            var selector=this.searchContainer;
+            var container=$(selector);
+            this._searchContainer=container;
+            var search=$('[search]');
+            var launchSearch=this._launchSearch.bind(this);
+            if(search[0]){
+                search.on('click',launchSearch);
+                this._searchEvents();
+            }
+
+        },
+
+        _launchSearch:function(){
+            var container=this._searchContainer;
+            var searchElement=this._getSearchElement();
+            this._searchElement =searchElement;
+            container.append(searchElement);
+            var textArea=searchElement.find('textarea');
+            this._searchInput=textArea;
+            textArea[0].focus();
+        },
+
+        _searchEvents:function(){
+            var onSearchKeyPress=this._onSearchKeyPress.bind(this);
+            var onSearchClose=this._onSearchClose.bind(this);
+            $(document).on('keypress','[data-id="txtSearchArea"]',onSearchKeyPress);
+            $(document).on('click','.search-icon',onSearchClose);
+        },
+
+        _onSearchKeyPress:function(event){
+            if(event.which===13) this._onSearchClose();
+        },
+
+        _onSearchClose:function(){
+            var searchElement=this._searchElement;
+            var input=this._searchInput;
+            var val=input.val();
+            searchElement.remove();
+            if(val && val!=='') this._fireEvent(val);
+        },
+
+        _fireEvent:function(val){
+            this._element.trigger('app.header.search', {value:val});
+        },
+
+        _getSearchElement:function(){
+            return $('<div class="search-overlay"><div class="search-overlay-inner"><textarea data-id="txtSearchArea" placeholder="Search"></textarea><div><span class="icon-close search-icon"></span></div></div></div>');
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+

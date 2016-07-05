@@ -1,0 +1,152 @@
+
+<dom-module id="flex-container">
+    <style>
+        :host{
+            -webkit-display:flex;
+            display:flex;
+            color:#fff;
+        }
+        :host.dark{
+            color:#484848;
+        }
+        :host>a{
+            width:50%;
+            position:relative;
+            min-height:700px;
+            display:block;
+            color:#fff;
+        }
+        :host.dark>div{
+            color:#484848;
+        }
+        :host .content-container:hover{
+            box-shadow:0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.4);
+            cursor:pointer;
+        }
+        :host .content-container:focus{
+            box-shadow:0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
+            cursor:pointer;
+        }
+        :host ::content .absolute-heading{
+            top:3em;
+            left:3em;
+            position:absolute;
+        }
+        :host ::content .absolute-heading p{
+            font-size:14px;
+        }
+        :host ::content .absolute-heading h4{
+            display:inline-block;
+        }
+        :host ::content .return:after{
+            opacity: .4;
+            content: "¬";
+            font-size:28px;
+        }
+        :host .absolute-footer{
+            bottom:2em;
+            padding-left:3em;
+            padding-right:3em;
+            position:absolute;
+            width:100%;
+        }
+        :host .absolute-footer .flex-footer{
+            -webkit-display:flex;
+            display:flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            width:100%;
+        }
+        :host .absolute-footer ::content [footer1]{
+            font-size:14px;
+        }
+
+        :host .absolute-footer ::content [footer2]{
+            font-size:14px;
+        }
+        @media (max-width: 950px){
+           :host{
+               -webkit-flex-wrap:wrap;
+               flex-wrap:wrap;
+           }
+           :host>a{
+               width:100%;
+               min-height:0;
+           }
+        }
+        @media (max-width: 600px){
+            :host ::content img{
+                margin:4em 0 3em 0;
+            }
+        }
+    </style>
+    <template>
+        <a class="content-container" style="background:[[color1]];" id="link1">
+            <div class="absolute-heading">
+                <content select="[heading1]"></content>
+                <span class="return"></span>
+                <content select="[p1]"></content>
+            </div>
+            <content select="[image1]"></content>
+            <div class="absolute-footer">
+                <div class="flex-footer">
+                    <content select="[footer1]"></content>
+                    <content select="[icon1]"></content>
+                </div>
+            </div>
+        </a>
+        <a class="content-container" style="background:[[color2]];" id="link2">
+            <div class="absolute-heading">
+                <content select="[heading2]"></content>
+                <span class="return"></span>
+                <content select="[p2]"></content>
+            </div>
+            <content select="[image2]"></content>
+            <div class="absolute-footer">
+                <div class="flex-footer">
+                    <content select="[footer2]"></content>
+                    <content select="[icon2]"></content>
+                </div>
+            </div>
+        </a>
+    </template>
+</dom-module>
+<script>
+
+    Polymer({
+
+        is: 'flex-container',
+
+        behaviors:[],
+
+        properties: {
+            link1:{
+                type:String,
+                value:null
+            },
+
+            link2:{
+                type:String,
+                value:null
+            }
+        },
+        
+        listeners:{
+            
+        },
+
+        ready:function(){
+            if(this.link1) this._setLink1();
+            if(this.link2) this._setLink2();
+        },
+
+        _setLink1:function(){
+            this.$.link1.setAttribute('href',this.link1);
+        },
+
+        _setLink2:function(){
+            this.$.link2.setAttribute('href',this.link2);
+        }
+    });
+
+</script>

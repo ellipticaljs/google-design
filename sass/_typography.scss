@@ -1,0 +1,15 @@
+body{
+   font-family:'robotoregular';
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family: 'Roboto Mono';
+}
+
+p + p{
+  margin-top:2em;
+}
+
+p + p.standard{
+  margin-top:1.5em;
+}

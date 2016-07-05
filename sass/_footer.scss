@@ -1,0 +1,31 @@
+@include ui-sticky-footer();
+footer[data-role=footer]{
+  margin-bottom:5em;
+  font-size:14px;
+  margin-top:8em;
+  color:#747474;
+
+  a{
+    color:#414141;
+    font-family:'robotomedium';
+  }
+
+  .social-flex{
+    @include justify-content(flex-end);
+    @include phone-content(){
+      @include justify-content(center);
+    }
+  }
+  .footer-box{
+    @include flexbox($justification:space-between,$alignment:center);
+    margin-top:2em;
+    @include phone-content(){
+      @include flex-wrap(wrap);
+      @include flexbox($justification:flex-start,$alignment:flex-start);
+      &>*{
+        width:100%;
+        margin-bottom:1em;
+      }
+    }
+  }
+}

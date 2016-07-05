@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>Skeleton Prototype</title>
+    <script src="components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="components/elliptical-holderjs/holder.js"></script>
+    <link rel="import" href="elements/app-footer/app-footer.html" id="footer-doc">
+    <link rel="import" href="imports/import.html">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+</head>
+<body>
+<ui-container>
+    <app-header home-url="/">
+        <h5 brand home>My Brand</h5>
+        <h4 touch-brand home>My Brand</h4>
+        <ui-menu>
+            <menu-item><a>Resources</a></menu-item>
+            <menu-item><a>News</a></menu-item>
+            <menu-item><a>Events</a></menu-item>
+            <menu-item><a href="about.html">About</a></menu-item>
+            <menu-item touch-menu-item="false" search><span class="icon-search"></span></menu-item>
+        </ui-menu>
+        <md-more icon-color="#fff">
+            <menu-item><a>Sign In</a></menu-item>
+            <menu-item><a>Sign Up</a></menu-item>
+        </md-more>
+        <h1 header-title>Design</h1>
+    </app-header>
+    <section>
+        <grid-row>
+            <grid-columns class="default-12 no-gutter">
+                <flex-container color1="#231f20" color2="#ff5252">
+                    <h4 heading1>Space Mono</h4>
+                    <p p1>
+                        Introducing a new monospaced typeface by Colophon Foundry for Google Fonts.
+                    </p>
+                    <img src="images/space-mono.svg" image1>
+                    <h5 footer1>Medium / Google Design</h5>
+                    <span class="icon-launch" icon1></span>
+                    <h4 heading2>Reimagining Google Fonts</h4>
+                    <p p2>
+                        A design resource for everyone.
+                    </p>
+                    <img src="images/fonts-tile.png" image2>
+                    <h5 footer2>Medium / Google Design</h5>
+                    <span class="icon-chevron-right" icon2></span>
+                </flex-container>
+                <flex-single-container background="#37474f" img-width="660px">
+                    <img src="images/robinhood-tile.png">
+                    <h4 heading>Investing in Material</h4>
+                    <p>
+                        How an award-winning stock app enages users by design
+                    </p>
+                    <h5 footer>Article / Showcase</h5>
+                    <span class="icon-launch" icon></span>
+                </flex-single-container>
+                <flex-single-container background="#424242">
+                    <img src="images/tooling-tile.svg">
+                    <h4 heading>Tooling</h4>
+                    <p>
+                        A collection of some of the best writing on new design tools.
+                    </p>
+                    <h5 footer>Medium / Google Design</h5>
+                    <span class="icon-launch" icon></span>
+                </flex-single-container>
+                <flex-single-container background="#f1f1f1" class="dark">
+                    <img src="images/fonts-logo.svg">
+                    <h4 heading>Google Fonts</h4>
+                    <p>
+                        Making the web more beautiful,fast and open through great typography.
+                    </p>
+                    <h5 footer>Article / Showcase</h5>
+                    <span class="icon-launch" icon></span>
+                </flex-single-container>
+                <flex-single-container background="#00bcd4">
+                    <img src="images/guidelines.png">
+                    <h4 heading>Material Design Guidelines</h4>
+                    <p>
+                        A collection of some of the best writing on new design tools.
+                    </p>
+                    <h5 footer>Google Design</h5>
+                    <span class="icon-launch" icon></span>
+                </flex-single-container>
+            </grid-columns>
+        </grid-row>
+    </section>
+    <footer data-role="footer"></footer>
+</ui-container>
+<script src="scripts/footer.js"></script>
+</body>

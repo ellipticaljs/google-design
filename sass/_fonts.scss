@@ -1,0 +1,5 @@
+@import "../node_modules/sass-ubuntu/index";
+
+@mixin site-fonts(){
+  @include font-ubuntu();
+}

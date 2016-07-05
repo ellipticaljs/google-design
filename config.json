@@ -1,0 +1,15 @@
+{
+  "sassApp":"./app.scss",
+  "sassSrc":"./sass/**/*.scss",
+  "cssDest":"./public/css",
+  "devPath":"./public",
+  "devPort":"9040",
+  "devHost":"127.0.0.1",
+  "appScriptPath":"./public/app",
+  "binScriptPath":"./public/bin",
+  "importSrc":"./public/imports",
+  "vulcanDest":"./public/vulcanized",
+  "stripExcludes":"false",
+  "inlineScripts":"true",
+  "inlineCss":"true"
+}

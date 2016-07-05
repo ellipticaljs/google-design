@@ -1,0 +1,31 @@
+{
+  "name": "google-design-starter-kit",
+  "description": "google design web components simple starter project",
+  "version": "1.0.0",
+  "main": "public/index.html",
+  "authors": [
+    "Scott <sfrancis@misinteractive.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "prototype"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/ellipticaljs/google-design-starter-kit",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ui-components": "~1.2.0",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.7",
+    "elliptical-browser": "~1.1.0",
+    "md-more": "~1.2.0",
+    "elliptical-viewdata": "~1.0.1",
+    "gsap-import": "~1.0.1",
+    "sass-social-media-icons": "~1.0.0"
+  }
+}

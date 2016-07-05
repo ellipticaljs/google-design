@@ -1,0 +1,169 @@
+
+<dom-module id="flex-single-container">
+    <style>
+        :host{
+            -webkit-display:flex;
+            display:flex;
+            min-height:700px;
+            color:#fff;
+        }
+        :host.dark{
+            color:#484848;
+        }
+        :host .content-container{
+            width:100%;
+            position:relative;
+            display:block;
+            color:#fff;
+        }
+        :host.dark .content-container{
+            color:#484848;
+        }
+        :host .content-container:hover{
+            box-shadow:0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.4);
+            cursor:pointer;
+        }
+        :host .content-container:focus{
+            box-shadow:0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
+            cursor:pointer;
+        }
+        :host .flex-single{
+            -webkit-display:flex;
+            display:flex;
+        }
+        :host .flex-single ::content img{
+            margin-top:1em;
+            max-width:100%;
+        }
+        :host .flex-single .content-width{
+            width:50%;
+        }
+        :host .flex-heading{
+            width:50%;
+            -webkit-display:flex;
+            display:flex;
+            -webkit-justify-content:center;
+            justify-content:center;
+            -webkit-align-items:center;
+            align-items:center;
+            -webkit-flex-direction: column;
+            flex-direction:column;
+        }
+        :host .flex-heading ::content [heading]{
+            display:inline-block;
+        }
+        :host .flex-heading ::content p{
+            font-size:14px;
+        }
+        :host .flex-heading ::content .return:after{
+            opacity: .4;
+            content: "¬";
+            font-size:28px;
+        }
+        :host .absolute-footer{
+            bottom:2em;
+            padding-left:3em;
+            padding-right:3em;
+            position:absolute;
+            width:100%;
+        }
+        :host .absolute-footer .flex-footer{
+            -webkit-display:flex;
+            display:flex;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            width:100%;
+        }
+        :host .absolute-footer ::content [footer]{
+            font-size:14px;
+        }
+        @media (max-width: 700px){
+            :host .flex-single{
+                -webkit-flex-wrap:wrap;
+                flex-wrap:wrap;
+            }
+            :host .flex-single .flex-heading{
+                margin-top:1em;
+                -webkit-order: 1;
+                order: 1;
+                width:100%;
+            }
+            :host .flex-single .content-width{
+                -webkit-order: 2;
+                order: 2;
+                width:100%;
+                margin-top:2em;
+            }
+            :host .flex-single .flex-heading ::content p{
+                padding:0 1em;
+            }
+        }
+    </style>
+    <template>
+        <a class="content-container" id="link">
+            <div class="flex-single">
+                <div class="content-width">
+                    <content select="img"></content>
+                </div>
+                <div class="flex-heading">
+                    <div>
+                        <content select="[heading]"></content>
+                        <span class="return"></span>
+                    </div>
+                    <content select="p"></content>
+                </div>
+            </div>
+            <div class="absolute-footer">
+                <div class="flex-footer">
+                    <content select="[footer]"></content>
+                    <content select="[icon]"></content>
+                </div>
+            </div>
+        </a>
+    </template>
+</dom-module>
+<script>
+
+    Polymer({
+
+        is: 'flex-single-container',
+
+        behaviors:[],
+
+        properties: {
+           background:{
+               type:String,
+               value:null
+           },
+           imgWidth:{
+               type:String,
+               value:null
+           },
+           link:{
+               type:String,
+               value:null
+           }
+        },
+
+        ready:function(){
+            if(this.background) this._setBackground();
+            if(this.imgWidth) this._setImageSize();
+            if(this.link) this._setLink();
+        },
+
+        _setBackground:function(){
+            this.style.background=this.background;
+        },
+
+        _setImageSize:function(){
+            var width=this.imgWidth;
+            var image=this.querySelector('img');
+            image.style.width=width;
+        },
+
+        _setLink:function(){
+            this.$.link.setAttribute('href',this.link);
+        }
+    });
+
+</script>
