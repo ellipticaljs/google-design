@@ -1,6 +1,6 @@
 {
   "name": "google-design-starter-kit",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "description": "google design web components simple starter project",
   "main": "./public/index.html",
   "scripts": {
