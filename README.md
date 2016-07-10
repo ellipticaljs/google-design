@@ -37,6 +37,7 @@ http://localhost:9040/
 ``` bash
 gulp start-server
 gulp sass-compile
+gulp sass-compile-min
 gulp sass-watch
 gulp app-build
 gulp app-imports
