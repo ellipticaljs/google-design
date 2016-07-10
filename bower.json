@@ -1,7 +1,7 @@
 {
-  "name": "google-design-starter-kit",
+  "name": "google-design",
   "description": "google design web components simple starter project",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "main": "public/index.html",
   "authors": [
     "Scott <sfrancis@misinteractive.com>"
@@ -11,7 +11,7 @@
     "prototype"
   ],
   "moduleType": [],
-  "homepage": "https://github.com/ellipticaljs/google-design-starter-kit",
+  "homepage": "https://github.com/ellipticaljs/google-design",
   "ignore": [
     "**/.*",
     "node_modules",
