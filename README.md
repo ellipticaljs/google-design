@@ -84,3 +84,7 @@ gulp app-binding --name <name>
 
 
 ```
+
+# Demo
+
+http://ellipticaljs.github.io/google-design/
