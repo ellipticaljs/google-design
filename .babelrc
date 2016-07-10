@@ -1,0 +1,6 @@
+{
+  "presets":["stage-3"],
+  "plugins":["transform-es2015-modules-umd"],
+  "sourceMaps": "both"
+
+}
