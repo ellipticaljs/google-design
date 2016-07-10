@@ -1,0 +1,9 @@
+<link rel="import" href="Elliptical-bootstrap.html">
+<script>
+    Elliptical.registerElement=function(tag){
+        if(document.createElement(tag).constructor !== HTMLElement) document.registerElement(tag);
+    };
+
+    Elliptical.register=Elliptical.registerElement;
+
+</script>

@@ -1,0 +1,29 @@
+{
+  "name": "elliptical-location",
+  "description": "Express style, history-enabled routing for the browser",
+  "version": "1.0.11",
+  "main": "dist/elliptical.location.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "history",
+    "router",
+    "location"
+  ],
+  "homepage": "https://github.com/ellipticaljs/location",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "elliptical-utils": "~2.1.0",
+    "elliptical-class": "~1.0.2",
+    "elliptical-event": "~1.0.1"
+  }
+}

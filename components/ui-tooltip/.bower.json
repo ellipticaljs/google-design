@@ -1,0 +1,59 @@
+{
+  "name": "ui-tooltip",
+  "description": "tooltip web component",
+  "version": "1.2.0",
+  "main": "ui-tooltip.html",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "components",
+    "tooltip"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/EllipticalElements/ui-tooltip",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "elliptical-sass": "~1.2.1",
+    "sass-core-icons": "~1.0.4",
+    "sass-content-icons": "~1.0.4",
+    "polymer": "Polymer/polymer#^1.0.0",
+    "ui-behaviors": ">=1.1.0"
+  },
+  "_release": "1.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.0",
+    "commit": "318c3156f36de6dad4065058d730fc72515189bf"
+  },
+  "_source": "https://github.com/EllipticalElements/ui-tooltip.git",
+  "_target": "~1.2.0",
+  "_originalSource": "ui-tooltip"
+}

@@ -1,0 +1,58 @@
+{
+  "name": "md-dialog",
+  "description": "A Material Design dialog",
+  "version": "1.2.0",
+  "authors": [
+    "S. Francis"
+  ],
+  "keywords": [
+    "web-components",
+    "polymer",
+    "dialog",
+    "overlay"
+  ],
+  "main": "md-dialog.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/EllipticalElements/md-dialog"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/EllipticalElements/md-dialog",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.1.0",
+    "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#~1.2.5",
+    "paper-styles": "PolymerElements/paper-styles#~1.1.4",
+    "neon-animation": "PolymerElements/neon-animation#~1.2.2",
+    "paper-button": "PolymerElements/paper-button#~1.0.11",
+    "md-fonts": "~1.0.3",
+    "elliptical-polymer-behaviors": "~1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#~1.1.5",
+    "web-component-tester": "*"
+  }
+}

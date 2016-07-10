@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/checkbox.html">
+
+<dom-module id="ui-radio">
+    <template>
+        <input type="radio" id="[[data-id]]" name="[[name]]" data-bind="[[bind]]" [[required]] value="[[value]]">
+        <label for="[[data-id]]">[[label]]</label>
+    </template>
+</dom-module>
+
+<script>
+
+    Polymer({
+
+        is: 'ui-radio',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Checkbox],
+
+        properties: {
+            eventType:{
+                type:String,
+                value:'ui.radio.change'
+            }
+        },
+
+        ready:function(){
+            var checked=this.element.attr('checked');
+            if(checked){
+                var input=this.element.find('input');
+                input.prop('checked',true);
+            }
+            this.__events();
+        }
+
+    });
+
+</script>

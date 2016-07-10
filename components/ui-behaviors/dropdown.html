@@ -1,0 +1,246 @@
+<script>
+    (function (root, factory) {
+        root.Elliptical.Behaviors=root.Elliptical.Behaviors || {};
+        root.Elliptical.Behaviors.Dropdown=factory();
+    }(this, function () {
+
+
+        return {
+
+            /**
+             * private method to add focus(tabIndex) to element
+             * @private
+             */
+            _focus: function(){
+                this.element.attr('tabindex',0);
+            },
+
+            /**
+             * private method that shows the dropdown
+             * @private
+             */
+            _show: function () {
+                var dropdown = this._data.get('dropdown');
+                if(this._isDisabled()){
+                    return;
+                }
+                this.element.addClass('open');
+                this._onEventTrigger('show', {});
+                dropdown.addClass('show');
+                this._triggered('open');
+            },
+
+            /**
+             * private method that hides the dropdown
+             * @private
+             */
+            _hide: function (force) {
+                var focused = this._data.get('focused');
+                var dropdown = this._data.get('dropdown');
+                if(this._isDisabled()){
+                    return;
+                }
+                if(focused && !force){
+                    return;
+                }
+                this.element.removeClass('open');
+                this._onEventTrigger('hide', {});
+                dropdown.removeClass('show');
+                this._triggered('closed');
+            },
+
+
+            /**
+             * check disabled status
+             * @returns {boolean}
+             * @private
+             */
+            _isDisabled: function(){
+                var element=this.element;
+                if(element.hasClass('disabled') || element.parent().hasClass('disabled')){
+                    return true;
+                }else return typeof element.attr('disabled') != 'undefined' || typeof element.parent().attr('disabled') != 'undefined';
+            },
+
+            /**
+             * private method that toggles the dropdown
+             *
+             * @private
+             */
+            _toggle: function () {
+                var dropdown = this._data.get('dropdown');
+                if (dropdown.hasClass('show')) this._hide(true);else{
+                    if(this._device.touch && !this.disableBlur){
+                        /* for touch devices, explicitly set element focus to fire the focus event */
+                        this.element[0].focus();
+                        var self=this;
+                        /* for touch, set a blur listener on the document */
+                        setTimeout(function(){
+                            self._blurEvent();
+                        },1);
+                    }
+                    this._show();
+                }
+            },
+
+            _triggered:function(state){
+                var dataId = 'data-id';
+                var target=this.element;
+                this._onEventTrigger('selected',{
+                    id:target.attr(dataId),
+                    state:state,
+                    target:target[0]
+                });
+            },
+
+            _removeActiveClass:function(){
+                this.element.find('menu-item')
+                        .removeClass('active');
+            },
+
+            _eventData:function(target,li){
+                var dataId='data-id';
+                var id=li.attr(dataId);
+                var a=this.element.find('a');
+                var index= a.index(target);
+                return {
+                    index:index,
+                    id:id,
+                    target:target
+                }
+            },
+
+
+            _onClick:function(event){
+                this._toggle();
+            },
+
+            _onKeyPress: function(event){
+                this._toggle();
+            },
+
+            _onBlur:function(event){
+                if(this.disableBlur) return;
+                var element = this.element;
+                element.removeClass('ui-focus');
+                var self=this;
+                if(this._device.touch){
+                    this._hide(false);
+                }else{
+                    setTimeout(function(){
+                        self._hide(false);//mozilla/firefox won't fire click event on links unless hide() is delayed
+                    },200);
+                }
+            },
+
+            _onFocus:function(event){
+                var element = this.element;
+                element.addClass('ui-focus');
+            },
+
+            _setFocused:function(){
+                this._data.set('focused',true);
+            },
+
+            _resetFocused:function(){
+                this._data.set('focused',false);
+            },
+
+            /**
+             * element events
+             * @private
+             */
+            __events: function () {
+                /* click special event name */
+                var click=this._data.click;
+
+                var element = this.element;
+                var self = this;
+                if(this.autoClose) this._menuItemClicks();
+                if (this.element.find('ui-mega-dropdown')[0]) {
+                    if (this.disableBlur) {
+                        this._data.set('focused', true);
+                    }
+                }
+                this._event(element.children('a'), click, function (event) {
+                    self._onClick(event);
+                });
+
+                this._event(element.children('[dropdown]'), click, function (event) {
+                    self._onClick(event);
+                });
+
+                this._event(element,'keypress',function(event){
+                    self._onKeyPress(event);
+                });
+
+                this._event(element,'blur',function(event){
+                    if(!self._data.get('focused')){
+                        self._onBlur(event);
+                    }
+                });
+
+                this._event(element,'focus',function(event){
+                    self._onFocus(event);
+                });
+
+                this._event(element,'set.focus',function(event){
+                    self._setFocused(event);
+                });
+
+                this._event(element,'set.blur',function(event){
+                    self._resetFocused(event);
+                });
+
+            },
+
+            _menuItemClicks:function(){
+                var self=this;
+                this._event(this.element.find('ui-dropdown'), this._data.click,'menu-item>a', function (event) {
+                    self._hide();
+                });
+            },
+
+            _blurEvent: function(){
+                var $document=$(document);
+                var self=this;
+                var click=this._data.click + '.blur';
+                var element=this.element;
+                $document.on(click,function(event){
+                        //element[0].blur();
+                        self._hide(true);
+                        $document.off(click);
+                });
+            },
+
+
+            /*==========================================
+             PUBLIC METHODS
+             *===========================================*/
+
+            show: function () {
+                this._show();
+            },
+
+            hide: function (force) {
+                if (force === undefined) {
+                    force = false;
+                }
+                this._hide(force);
+            },
+
+            toggle: function () {
+                this._toggle();
+            },
+
+            focus:function(){
+                this._setFocused();
+            },
+
+            blur:function(){
+                this._resetFocused();
+            }
+
+        };
+    }));
+</script>

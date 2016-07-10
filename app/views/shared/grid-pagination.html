@@ -1,0 +1,21 @@
+<grid-pagination>
+    {#pagination}
+    <page-navigation>
+        <a class="control" href="{firstPage}"><paper-ripple></paper-ripple><span class="icon-fast-rewind"></span></a>
+        <a class="control" href="{prevPage}"><paper-ripple></paper-ripple><span class="icon-arrow-back"></span></a>
+        {#pages}
+        <a class="page {activePage}" href="{pageUrl}"><paper-ripple></paper-ripple><span>{page}</span></a>
+        {/pages}
+        <a class="control" href="{nextPage}"><paper-ripple></paper-ripple><span class="icon-arrow-forward nav-icon"></span></a>
+        <a class="control" href="{lastPage}"><paper-ripple></paper-ripple><span
+                class="icon-fast-forward"></span></a>
+    </page-navigation>
+    <page-info>
+        <div>
+            Page <span>{page}</span> of <span>{pageCount}</span>
+        </div>
+
+        <span class="icon-loop relative" refresh><paper-ripple></paper-ripple></span>
+    </page-info>
+    {/pagination}
+</grid-pagination>

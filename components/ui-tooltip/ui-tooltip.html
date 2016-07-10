@@ -1,0 +1,62 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/tooltip.html">
+
+<dom-module id="ui-tooltip">
+    <style>
+        :host{
+            display:none;
+        }
+    </style>
+</dom-module>
+
+<script>
+
+    Polymer({
+
+        is: 'ui-tooltip',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Tooltip],
+
+        properties: {
+            placement:{
+                type:String,
+                value:'top'
+            },
+            tipHeight:{
+                value:8
+            },
+            tipWidth:{
+                value:10
+            },
+            animationIn:{
+                type:String,
+                value:'none'
+            },
+            animationOut:{
+                type:String,
+                value:'none'
+            },
+            duration:{
+                value:250
+            },
+            disableAutoRemove:{
+                type:Boolean,
+                value:false
+            },
+            topPlacement:{
+                value:0
+            },
+            leftPlacement:{
+                value:0
+            }
+        },
+
+        ready:function(){
+            this.__events();
+            if(!this.disableAutoRemove) this._removeToolTipListener();
+        }
+
+    });
+
+</script>

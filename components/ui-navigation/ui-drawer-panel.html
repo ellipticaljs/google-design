@@ -1,0 +1,94 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/drawer.html">
+<link rel="import" href="../ui-button-dropdown/ui-button-dropdown.html">
+
+<script>
+
+    Polymer({
+
+        is: 'ui-drawer-panel',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Drawer],
+
+        properties: {
+            transformDuration:{
+                value:250
+            },
+            transformDelay:{
+                value:0
+            },
+            drawerPanel:{
+                type:Boolean,
+                value:true
+            },
+            translateX:{
+                type:String,
+                value:'277px'
+            },
+            overlayOpacity: {
+                value:0
+            },
+            overlayBackground: {
+                type:String,
+                value:'#fff'
+            },
+            easing:{
+                type:String,
+                value:'cubic-bezier(0.2, 0.3, 0.25, 0.9)'
+            },
+            homeUrl:{
+                type:String,
+                value:'/'
+            }
+        },
+
+        ready:function(){
+            this._createDrawer();
+            this._event(this.element,this._data.click,'ui-toggle',this._onToggleClick.bind(this));
+            this._event(this.element,this._data.click,'[home]',this._onBrandClick.bind(this));
+            this._event($(document),this._data.click,'ui-sidebar [close]',this._hide.bind(this));
+            this._event($(window),'navScrollTop',this._onNavScrollTop.bind(this));
+        },
+
+        _onToggleClick:function(event){
+            this._scrollTop(0, 'navScrollTop');
+        },
+
+        _onNavScrollTop:function(event){
+            this._onScrollTop();
+        },
+
+        _onScrollTop:function(){
+            var self=this;
+            setTimeout(function () {
+                self._show();
+            }, self.touchDelay)
+        },
+
+        _onBrandClick:function(){
+            var homeUrl=this.homeUrl;
+            if(homeUrl) location.href=homeUrl;
+        },
+
+        _show:function(){
+            var self=this;
+            this._data.set('open', true);
+            this._openDrawer(function () {
+                self._triggerEvent('show', {});
+            }, function(){
+                self._hide();
+            });
+        },
+
+        _hide:function(){
+            var self=this;
+            this._triggerEvent('hiding', {});
+            this._data.set('open', false);
+            this._closeDrawer(function(){
+                self._triggerEvent('hide', {});
+            });
+        }
+    });
+
+</script>

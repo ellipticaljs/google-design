@@ -1,0 +1,23 @@
+
+<ui-pagination>
+{#pagination}
+    <div class="page-info">
+        Page <span class="page-no">{page}</span> of <span class="page-count">{pageCount}</span>
+    </div>
+    <ul class="right">
+        <li class="{prevClass}">
+            <a class="{hideIcon}" href="{prevPage}"><span class="icon-arrow-back"></span></a>
+            <a class="{hideLabel}" href="{prevPage}">prev</a>
+        </li>
+        {#pages}
+        <li data-page="{page}" class="{activePage}">
+            <a href="{pageUrl}" class="{activePage}">{page}</a>
+        </li>
+        {/pages}
+        <li class="{nextClass}">
+            <a class="{hideIcon}" href="{nextPage}"><span class="icon-arrow-forward"></span></a>
+            <a class="{hideLabel}" href="{nextPage}">next</a>
+        </li>
+    </ul>
+{/pagination}
+</ui-pagination>

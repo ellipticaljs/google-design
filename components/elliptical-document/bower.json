@@ -1,0 +1,44 @@
+{
+  "name": "elliptical-document",
+  "description": "Parses HTML Forms to JavaScript POJOs",
+  "version": "1.0.6",
+  "main": "dist/elliptical.document.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "html",
+    "form",
+    "serialization"
+  ],
+  "homepage": "https://github.com/ellipticaljs/document",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "index.html",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos"
+  ],
+  "dependencies": {
+    "jquery-extensions": "~1.0.7"
+  }
+}

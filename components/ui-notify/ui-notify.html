@@ -1,0 +1,62 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/notification.html">
+
+<dom-module id="ui-notify">
+    <style>
+      :host{
+          display:none;
+      }
+    </style>
+</dom-module>
+
+<script>
+
+    Polymer({
+
+        is: 'ui-notify',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Notification],
+
+        properties: {
+            cssClass:{
+                type:String,
+                value:'info'
+            },
+            message:{
+                type:String,
+                value:'Processing...'
+            },
+            terminate:{
+                type:Boolean,
+                value:false
+            },
+            terminateTimeout: {
+                value:3000
+            },
+            terminateDelay:{
+                value:1000
+            },
+            animationDuration:{
+                value:1200
+            },
+            top:{
+                value:null
+            },
+            containerSelector:{
+                type:String,
+                value:'body'
+            }
+
+        },
+
+        ready:function(){
+            this._data.set('cssClass',this.cssClass);
+            this._data.set('element',null);
+            this._data.set('isVisible',false);
+            this._initNotification();
+        }
+
+    });
+
+</script>

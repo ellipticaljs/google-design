@@ -1,0 +1,334 @@
+<script>
+    (function (root, factory) {
+        root.Elliptical.Behaviors=root.Elliptical.Behaviors || {};
+        root.Elliptical.Behaviors.Dialog=factory();
+    }(this, function () {
+
+
+        return {
+
+            _setOpts:function(){
+                if(this.cssClass){
+                    this.element.addClass(this.cssClass);
+                }
+            },
+
+
+            /**
+             *
+             * @param element {Object}
+             * @private
+             */
+            _initWindow: function (element) {
+                element.attr({tabIndex: -1});
+                this._setButtonLabel();
+                this._setCancelLabel();
+                this._setOpts();
+                this._setTitle();
+                this._bindClose();
+
+            },
+
+            /**
+             *
+             * @private
+             */
+            _setModalInit: function(){
+                //if smartphone, modal is true regardless
+                if(this._device.smartphone){
+                    this.modal=true;
+                }
+            },
+
+
+
+            /**
+             *
+             * @private
+             */
+            _setPosition: function () {
+                var ele = this.element;
+                var css = {};
+                var top = this.top;
+                var bottom = this.bottom;
+                var left = this.left;
+                var right = this.right;
+                if ((top != null) && (bottom != null)) {
+                    css.bottom = 'auto';
+                    css.top = top + 'px';
+                } else if (top != null) {
+                    css.bottom = 'auto';
+                    css.top = top + 'px';
+                } else if (bottom != null) {
+                    css.top = 'auto';
+                    css.bottom = bottom + 'px';
+                }
+                if ((right != null) && (left != null)) {
+                    css.right = 'auto';
+                    css.left = left + 'px';
+                } else if (right != null) {
+                    css.left = 'auto';
+                    css.right = right + 'px';
+                } else if (left != null) {
+                    css.right = 'auto';
+                    css.left = left + 'px';
+                }
+                if (!$.isEmptyObject(css)) {
+                    ele.css(css);
+                }
+            },
+
+            /**
+             *
+             * @private
+             */
+            _setDimensions: function () {
+                var ele = this.element;
+                var css = {};
+                var height = this.height;
+                var width = this.width;
+                if (height != null) {
+                    css.height = height + 'px';
+                }
+                if (width != null) {
+                    css.width = width + 'px';
+                }
+                if (!$.isEmptyObject(css)) {
+                    ele.css(css);
+                }
+            },
+
+            /**
+             *
+             * @private
+             */
+            _setZIndex: function () {
+                if(this.setZIndex){
+                    var ele = this.element;
+                    var key = 'window_zIndex';
+                    var zIndex = this._getData(key);
+                    var option = this.zIndex;
+                    var css = ele.css('z-index');
+                    if (zIndex != null) {
+                        zIndex = parseInt(zIndex);
+                        zIndex++;
+                    } else if (option != null) {
+                        zIndex = parseInt(option);
+                        zIndex++;
+                    } else if (css != null) {
+                        zIndex = parseInt(css);
+                        zIndex++;
+                    } else {
+                        zIndex = 9999;
+                    }
+
+                    ele.css({'z-index': zIndex});
+                    this._setData(key, zIndex);
+
+                }
+
+            },
+
+            /**
+             *
+             * @private
+             */
+            _open: function () {
+                if (this._isOpen) {
+                    return;
+                }
+                var self=this;
+                this._isOpen = true;
+                var ele = this.element;
+                this._setPosition();
+                this._setZIndex();
+                this._setPosition();
+                this._setDimensions();
+
+                var modal = this.modal;
+                var duration = this.duration;
+                if (modal) {
+                    this._setModal();
+                }
+                if(this.animationIn==='none'){
+                    ele.addClass('show');
+                    this._onEventTrigger('show',{});
+                }else{
+                    this._transition(ele,{
+                        preset:this.animationIn,
+                        duration:duration
+                    },function(){
+                        self._onEventTrigger('show',{});
+                    });
+                }
+            },
+
+
+            /**
+             *
+             * @private
+             */
+            _close: function () {
+                var ele = this.element;
+                this._isOpen = false;
+                var eventData=this._eventData();
+                var modal = this.modal;
+                if (modal){
+                    this._removeModal();
+                }
+                ele.removeClass('show');
+                this._isOpen = false;
+                this._triggerEvent('hide',eventData);
+            },
+
+            /**
+             *
+             * @private
+             */
+            _bindClose: function () {
+                var self=this;
+                /* click special event name */
+                var click=this._data.click;
+                var ele = this.element;
+                var close = ele.find('header > .close');
+                if (close[0]) {
+                    this._event(close,click,function(event){
+                        self._close();
+                    });
+                }
+            },
+
+            /**
+             *
+             * @returns {{}}
+             * @private
+             */
+            _eventData:function(ele){
+                var data={};
+                data.target=this.element;
+                try{
+                    if(ele !==undefined){
+                        $.extend(data,this._getAttrs(ele,true));
+                    }
+                }catch(ex){
+
+                }
+                return data;
+            },
+
+            /**
+             *
+             * @private
+             */
+            __events: function () {
+                if(!(this.disablePhone && this._device.smartphone)) this._listener();
+                this._listener();
+                var self=this;
+                /* click special event name */
+                var click=this._data.click;
+                var ele = this.element;
+                var eventData;
+                var cancel = ele.find('footer > [data-cancel]');
+
+                if (cancel[0]) {
+                    eventData=this._eventData(cancel[0]);
+                    this._event(cancel,click,function(event){
+                        self._close();
+                        self._onEventTrigger('cancel', eventData);
+                    });
+                }
+
+                var action = ele.find('footer > [data-action]');
+                if (action[0]) {
+                    eventData=this._eventData(action[0]);
+                    this._event(action,click,function(event){
+                        self._onEventTrigger('action', eventData);
+                    });
+                }
+            },
+
+            _listener:function(){
+                var click=this._data.click;
+                var id=this.id;
+                if(id===undefined) {
+                    console.log('warning: ui-window requires an id to display...exiting');
+                    return;
+                }
+                $(document).on(click,'[data-window="' + id + '"]',this._open.bind(this));
+            },
+
+
+            /**
+             *
+             * @private
+             */
+            _focusin: function () {
+                //focused window needs to be on top
+                this._setZIndex();
+            },
+
+            /**
+             *
+             * @private
+             */
+            _setTitle: function () {
+                var ele = this.element;
+                var title = this.title;
+                var h3 = ele.find('header > h3');
+                h3.text(title);
+
+            },
+
+            /**
+             *
+             * @private
+             */
+            _setButtonLabel: function () {
+                var ele = this.element;
+                var label = this.buttonLabel;
+                var btn = ele.find('footer > [data-action]');
+                btn.text(label);
+            },
+
+            /**
+             *
+             * @private
+             */
+            _setCancelLabel: function () {
+                var ele = this.element;
+                var label = this.cancelLabel;
+                var btn = ele.find('footer > [data-cancel]');
+                btn.text(label);
+            },
+
+
+            /*==========================================
+             PUBLIC METHODS
+             *===========================================*/
+
+            /**
+             * @public
+             */
+            show: function () {
+                this._open();
+            },
+
+            /**
+             * @public
+             */
+            hide: function () {
+                this._close();
+            },
+
+            /**
+             *
+             * @returns {boolean|*}
+             * @public
+             */
+            isOpen: function () {
+                return this._isOpen;
+            }
+
+        };
+    }));
+</script>

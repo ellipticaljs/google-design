@@ -1,0 +1,132 @@
+<script>
+    (function (root, factory) {
+        root.Elliptical.Behaviors=root.Elliptical.Behaviors || {};
+        root.Elliptical.Behaviors.Notification=factory();
+    }(this, function () {
+
+
+        return {
+            /**
+             *
+             * @private
+             */
+            _initNotification:function () {
+                var notification=$('<ui-notification></ui-notification>');
+                var containerSelector=this.containerSelector;
+                var container=$(containerSelector);
+                container.append(notification);
+                this._data.set('element',notification);
+            },
+
+            /**
+             *
+             * @private
+             */
+            _show: function(element){
+                var self=this;
+                var isVisible=this._data.get('isVisible');
+                /* if terminate, setTimeout to display notification */
+                if(this.terminate && isVisible){
+                    setTimeout(function(){
+                        self._showNotification(element);
+                    },self.options.terminateDelay);
+                }else{
+                    /* else, show notification immediately */
+                    this._showNotification(element);
+                }
+            },
+
+            /**
+             *
+             * @private
+             */
+            _showNotification: function(element){
+                var self=this;
+                element.html(this.message);
+                var newCssClass=this.cssClass;
+                var oldCssClass=this._data.get('cssClass');
+                /* remove previously added classes */
+                element.removeClass(oldCssClass);
+                element.addClass(newCssClass);
+                this._data.set('cssClass',newCssClass);
+                element.addClass('show');
+                this._data.set('isVisible',true);
+                /* if terminate, setTimeout to animateOut */
+                if(this.terminate){
+                    setTimeout(function(){
+                        self._animateOut(element);
+                    },self.terminateTimeout);
+                }
+            },
+
+            /**
+             *
+             * @private
+             */
+            _hide: function(element){
+                this._animateOut(element);
+            },
+
+
+            /**
+             *
+             * @param element
+             * @private
+             */
+            _animateOut:function(element){
+                var duration=this.animationDuration;
+                this._data.set('isVisible',false);
+                this._transition(element,{
+                    opacity: 0,
+                    duration:duration
+                },function(){
+                    element.removeClass('show');
+                    element.removeAttr('style');
+                });
+            },
+
+
+            /**
+             *
+             * @private
+             */
+            _dispose:function(){
+                var element = this._data.get('element');
+                if(element[0]) element.remove();
+            },
+
+
+            /*==========================================
+             PUBLIC METHODS
+             *===========================================*/
+
+            /**
+             * @public
+             */
+            show:function (message,cssClass,terminate) {
+                if(message===undefined) this.message='Processing';
+                else this.message=message;
+
+                if(cssClass!==undefined){
+                    if(typeof cssClass==='boolean') this.terminate=cssClass;
+                    else this.cssClass=cssClass;
+                }
+
+                if(terminate !==undefined) this.terminate=terminate;
+                else this.terminate=true;
+
+                var element=this._data.get('element');
+                this._show(element);
+            },
+
+            /**
+             * @public
+             */
+            hide:function () {
+                var element=this._data.get('element');
+                this._hide(element);
+            }
+
+        };
+    }));
+</script>

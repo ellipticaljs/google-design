@@ -1,0 +1,142 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../elliptical-polymer-behaviors/component-behavior.html">
+
+<dom-module id="md-dropdown">
+    <style>
+        :host{
+            position:absolute;
+            z-index:10;
+            top:50%;
+            left:0;
+            box-shadow:0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.4);
+            outline:0;
+            display:none;
+        }
+        :host.show{
+             display:-webkit-flex;
+            -webkit-flex-direction: column;
+             display:flex;
+             flex-direction:column;
+        }
+        :host>header{
+             display:-webkit-flex;
+            -webkit-flex-direction: column;
+             display:flex;
+             flex-direction:column;
+             -webkit-align-items:center;
+             align-items:center;
+             padding:1em .5em;
+        }
+        :host>footer{
+             display:-webkit-flex;
+            -webkit-flex-direction: column;
+             display:flex;
+             flex-direction:column;
+             padding:1em .5em;
+        }
+        :host>menu-item{
+            display:-webkit-flex;
+            display:flex;
+            padding:.5em;
+            color:#515151;
+            line-height:24px;
+        }
+        :host>menu-item:hover{
+            background:#e7e7e7;
+            cursor:pointer;
+        }
+        :host>menu-item>a{
+            color:#515151;
+        }
+        :host>menu-divider{
+           width: 100%;
+           height: 0;
+           border: 0;
+           border-bottom: 1px solid #eaeaea;
+           padding: 0;
+           display:list-item;
+        }
+    </style>    
+</dom-module>
+<script>
+     try{
+        Elliptical.registerElement('menu-item');
+    }catch(ex){
+
+    }
+    
+    Polymer({
+
+        is: 'md-dropdown',
+
+        behaviors:[Polymer.NeonAnimationRunnerBehavior],
+
+        properties: {
+           opened:{
+               type:Boolean,
+               value:false
+           },
+           animationConfig:{
+               value:function(){
+                   return{
+                       'show':{
+                           name:'scale-up-animation',
+                           node:this
+                       },
+                       'hide':{
+                           name:'fade-out-animation',
+                           node:this
+                       }
+                   }
+               }
+           }
+        },
+        
+        listeners:{
+            'neon-animation-finish':'_onHide'
+        },
+
+        ready:function(){
+            this._eventListener();
+        },
+        
+        detached:function(){
+            var click=($.device.touch) ? 'touchstart.md' : 'click.md';
+            var parent=$(this).parents('[md-dropdown]');
+            parent.off(click, this._handler.bind(this));
+        },
+        
+        _eventListener:function(){
+            var click=($.device.touch) ? 'touchstart.md' : 'click.md';
+            var parent=$(this).parents('[md-dropdown]');
+            parent.on(click, this._handler.bind(this));
+        },
+        
+        _handler:function(event){
+             if (!this.opened) this.show();
+             else this.hide();
+        },
+        
+        _onHide:function(){
+           if(!this.opened){
+               this.opened=false;
+               this.classList.remove('show');
+           } 
+        },
+        
+        show:function(){
+            this.opened=true;
+            this.classList.add('show');
+            this.playAnimation('show');
+        },
+        
+        hide:function(){
+            this.opened=false;
+            this.playAnimation('hide');
+        }
+    });
+
+</script>

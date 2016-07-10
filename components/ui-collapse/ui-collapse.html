@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/collapse.html">
+
+<script>
+
+    Polymer({
+
+        is: 'ui-collapse',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Collapse],
+
+        properties: {
+            animate: {
+                type:Boolean,
+                value:true
+            },
+            duration: {
+                value:300
+            },
+            easing: {
+                type:String,
+                value:'linear'
+            }
+        },
+
+        ready:function(){
+            this._data.set('collapsible',null);
+            this._setCollapseItems();
+            this._collapseEvents();
+            this.__events();
+        }
+
+    });
+
+</script>

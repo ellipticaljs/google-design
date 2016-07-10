@@ -1,0 +1,47 @@
+{
+  "name": "elliptical-transitions",
+  "description": "View Transitions",
+  "version": "1.0.5",
+  "main": "dist/elliptical.transitions.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "view",
+    "transitions"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/ellipticaljs/transitions",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "index.html",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "velocity": "~1.2.3",
+    "jquery-extensions": "~1.0.7"
+  }
+}

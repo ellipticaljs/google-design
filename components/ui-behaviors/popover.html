@@ -1,0 +1,54 @@
+<script>
+    (function (root, factory) {
+        root.Elliptical.Behaviors=root.Elliptical.Behaviors || {};
+        root.Elliptical.Behaviors.PopOver=factory();
+    }(this, function () {
+
+
+        return {
+            _assignWidth: function (width) {
+                var content = this._content();
+                content.css({ width: width + 'px' });
+            },
+
+            _assignTop: function (top) {
+                var content = this._content();
+                content.css({ top: top + 'px' });
+            },
+
+            _content:function(){
+                return this._data.get('content');
+            },
+
+            __events: function () {
+                var click = this._data.click;
+                this._event(this.element, click, this._onClick.bind(this));
+            },
+
+            _onClick: function () {
+                var content = this._content();
+                if (content.hasClass('show')) {
+                    this._hide();
+                } else {
+                    this._show();
+                }
+            },
+
+            _show: function () {
+                var content = this._content();
+                content.addClass('show');
+                this._transitions(content, { opacity: 1, duration: 300 }, function () {
+
+                });
+            },
+
+            _hide: function () {
+                var content = this._content();
+                content.removeClass('show');
+                content.css({ opacity: '' });
+            }
+
+
+        };
+    }));
+</script>

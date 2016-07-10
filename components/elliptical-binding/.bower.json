@@ -1,0 +1,71 @@
+{
+  "name": "elliptical-binding",
+  "description": "Binds an element mutation to a function",
+  "version": "1.1.0",
+  "main": "dist/elliptical.binding.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mutation",
+    "observer",
+    "function",
+    "binding",
+    "element"
+  ],
+  "homepage": "https://github.com/ellipticaljs/binding",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "index.html",
+    "build.json",
+    "bundle.json",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "index.html",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "elliptical-mutation-summary": "~1.0.1",
+    "elliptical-utils": "~2.1.0"
+  },
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.0",
+    "commit": "834f63354032ea54e023d9660c7351045ab7e113"
+  },
+  "_source": "https://github.com/ellipticaljs/binding.git",
+  "_target": "~1.1.0",
+  "_originalSource": "elliptical-binding"
+}

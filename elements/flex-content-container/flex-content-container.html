@@ -1,0 +1,65 @@
+
+
+<dom-module id="flex-content-container">
+    <style>
+        :host{
+            -webkit-display:flex;
+            display:flex;
+        }
+        :host>*{
+            width:50%;
+        }
+        :host ::content [main]{
+            width:50%;
+            padding-right:2em;
+        }
+        :host ::content h3 + p{
+            margin-top:3em;
+        }
+        :host ::content h2 + p{
+            margin-top:3em;
+        }
+        :host ::content h4 + p{
+            margin-top:2em;
+        }
+        :host ::content h5 + p{
+            margin-top:3em;
+        }
+        @media (max-width: 800px){
+            :host .content-image{
+                display:none;
+            }
+            :host ::content [main]{
+               width:100%
+            }
+        }
+    </style>
+    <template>
+        <content select="[main]"></content>
+        <div class="content-image">
+            <content select="img"></content>
+        </div>
+    </template>
+</dom-module>
+<script>
+
+    Polymer({
+
+        is: 'flex-content-container',
+
+        behaviors:[],
+
+        properties: {
+           
+        },
+        
+        listeners:{
+            
+        },
+
+        ready:function(){
+            
+        }
+    });
+
+</script>

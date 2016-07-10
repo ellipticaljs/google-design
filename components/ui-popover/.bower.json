@@ -1,0 +1,59 @@
+{
+  "name": "ui-popover",
+  "description": "popover content web component",
+  "version": "1.2.0",
+  "main": "ui-popover.html",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "components",
+    "popover"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/EllipticalElements/ui-popover",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "elliptical-sass": "~1.2.1",
+    "sass-core-icons": "~1.0.4",
+    "sass-content-icons": "~1.0.4",
+    "polymer": "Polymer/polymer#^1.0.0",
+    "ui-behaviors": ">1.1.0"
+  },
+  "_release": "1.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.0",
+    "commit": "6db05e7a19d8658e7ca2a1f227492b26c52534d1"
+  },
+  "_source": "https://github.com/EllipticalElements/ui-popover.git",
+  "_target": "~1.2.0",
+  "_originalSource": "ui-popover"
+}

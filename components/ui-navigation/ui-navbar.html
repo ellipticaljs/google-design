@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/drawer.html">
+<link rel="import" href="../ui-behaviors/navigation.html">
+<link rel="import" href="../ui-behaviors/navbar.html">
+
+<script>
+
+    Polymer({
+
+        is: 'ui-navbar',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Drawer,Elliptical.Behaviors.Navigation,Elliptical.Behaviors.Navbar],
+
+        properties: {
+            transformDuration:{
+                value:250
+            },
+            transformDelay:{
+                value:0
+            },
+            translateX:{
+                type:String,
+                value:'260px'
+            },
+            overlayOpacity: {
+                value:.5
+            },
+            overlayOpenDuration:{
+                value:0
+            },
+            overlayCloseDuration: {
+                value:150
+            },
+            overlayBackground: {
+                type:String,
+                value:'#000'
+            },
+            includeHome: {
+                type:Boolean,
+                value:true
+            },
+            homeUrl: {
+                type:String,
+                value:'/'
+            },
+            homeIcon:{
+                type:String,
+                value:null
+            },
+            model: {
+                type:Array,
+                value:[]
+            },
+            touchEvents:{
+                type:Boolean,
+                value:true
+            },
+            easing:{
+                type:String,
+                value:'ease-in-out'
+            }
+
+        },
+
+        ready:function(){
+            if (this._mq.touch) {
+                this._createTouchNavigation(this.element, this.dataClass);
+                this._touchMenuEvents();
+            }
+            //search handler
+            var search = this.element.find('ui-search');
+            if(search[0]){
+                //save ref
+                //this._data.input=search_.find('input');
+                var input=search.find('input');
+                this._data.set('input',input);
+                //desktop search handler
+                this._onSearch(input,'desktop');
+            }
+            //if not touch device, call desktop events
+            if(!this._device.touch) this._desktopEvents();
+            var toggle = this.element.find('ui-toggle');
+            this._data.set('toggle', toggle);
+            var orientationEvent = this._device.orientationEvent;
+            this._event($(window),orientationEvent,this._onOrientationChange.bind(this));
+            this._event(this.element,this._data.click,'ui-toggle',this._onToggleClick.bind(this));
+            this._event($(window),'navScrollTop',this._onNavScrollTop.bind(this));
+            this._event(this.element,this._data.click,'[home]',this._onBrandClick.bind(this));
+        },
+
+        _onToggleClick:function(event){
+            this._scrollTop(0, 'navScrollTop');
+        },
+
+        _onNavScrollTop:function(event){
+            this._onScrollTop();
+        },
+
+        _onScrollTop:function(){
+            var self=this;
+            setTimeout(function () {
+                self._show();
+            }, self.touchDelay)
+        },
+
+        _onBrandClick:function(){
+            var homeUrl=this.homeUrl;
+            if(homeUrl) location.href=homeUrl;
+        }
+
+    });
+
+</script>

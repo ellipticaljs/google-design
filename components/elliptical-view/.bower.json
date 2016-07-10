@@ -1,0 +1,55 @@
+{
+  "name": "elliptical-view",
+  "description": "View abstraction for template rendering",
+  "version": "1.0.5",
+  "main": "dist/elliptical.view.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "view",
+    "template"
+  ],
+  "homepage": "https://github.com/ellipticaljs/view",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "index.html",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "elliptical-class": "~1.0.2"
+  },
+  "_release": "1.0.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.5",
+    "commit": "0304f361e03644d0ccbe33e1bf0e8044c4f955dc"
+  },
+  "_source": "https://github.com/ellipticaljs/view.git",
+  "_target": "~1.0.4",
+  "_originalSource": "elliptical-view"
+}

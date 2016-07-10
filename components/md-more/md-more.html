@@ -1,0 +1,51 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../md-dropdown/md-dropdown.html">
+
+
+<dom-module id="md-more">
+    <style>
+        :host{
+            position:relative;
+            display:block;
+        }
+        :host span.more-icon{
+            font-size:24px;
+            color:#666;
+        }
+        :host md-dropdown{
+            left:-125px;
+        }
+    </style>
+    <template>
+        <div md-dropdown>
+            <span class="icon-more-vert more-icon" id="moreIcon"></span>
+            <md-dropdown>
+                <content></content>
+            </md-dropdown>
+        </div>
+    </template>
+</dom-module>
+<script>
+
+    Polymer({
+
+        is: 'md-more',
+        properties:{
+            iconColor:{
+                type:String,
+                value:null
+            }
+        },
+
+        ready:function(){
+            if(this.iconColor) this.setIconColor(this.iconColor);
+        },
+
+        setIconColor:function(color){
+            this.$.moreIcon.style.color=color;
+        }
+
+
+    });
+
+</script>

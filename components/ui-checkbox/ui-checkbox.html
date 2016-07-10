@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/checkbox.html">
+
+<dom-module id="ui-checkbox">
+    <template>
+        <input type="checkbox" id="[[dataId]]" name="[[dataName]]"  [[required]]>
+        <label for="[[dataId]]">[[label]]</label>
+    </template>
+</dom-module>
+
+<script>
+
+    Polymer({
+
+        is: 'ui-checkbox',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Checkbox],
+
+        properties: {
+           eventType:{
+               type:String,
+               value:'ui.checkbox.change'
+           }
+        },
+
+        ready:function(){
+            var checked=this.element.attr('checked');
+            if(checked){
+                var input=this.element.find('input');
+                input.prop('checked',true);
+            }
+            this.__events();
+        }
+
+    });
+
+</script>

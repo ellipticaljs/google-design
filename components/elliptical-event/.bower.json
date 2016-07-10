@@ -1,0 +1,49 @@
+{
+  "name": "elliptical-event",
+  "description": "Elliptical Pub/Sub Library",
+  "version": "1.0.3",
+  "main": "dist/elliptical.event.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "pub/sub",
+    "library"
+  ],
+  "homepage": "https://github.com/ellipticaljs/event",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "index.html",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos"
+  ],
+  "_release": "1.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.3",
+    "commit": "7886b28c0a762966664e2405cd248ba6431412ee"
+  },
+  "_source": "https://github.com/ellipticaljs/event.git",
+  "_target": "~1.0.1",
+  "_originalSource": "elliptical-event"
+}

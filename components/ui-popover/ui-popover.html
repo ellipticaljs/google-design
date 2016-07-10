@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/popover.html">
+
+
+<script>
+
+    Polymer({
+
+        is: 'ui-popover',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.PopOver],
+
+        properties: {
+            dataWidth:{
+                value:null
+            },
+            dataTop:{
+                value:null
+            }
+
+        },
+
+        ready:function(){
+            var content = this.element.find('pop-content');
+            this._data.set('content',content);
+            if(this.dataWidth) this._assignWidth(this.dataWidth);
+            if(this.dataTop) this._assignTop(this.dataTop);
+            this.__events();
+        }
+
+    });
+
+</script>

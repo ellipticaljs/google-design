@@ -1,0 +1,319 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../paper-dialog-behavior/paper-dialog-shared-styles.html">
+<link rel="import" href="../elliptical-polymer-behaviors/component-behavior.html">
+<link rel="import" href="../md-fonts/md-fonts.html">
+<!--
+Material design: [Dialogs](https://www.google.com/design/spec/components/dialogs.html)
+`<md-dialog>` is a dialog with Material Design styling and optional animations when it is
+opened or closed. It provides styles for a header, content area, and an action area for buttons.
+You can use the `<paper-dialog-scrollable>` element (in its own repository) if you need a scrolling
+content area. See `Polymer.PaperDialogBehavior` for specifics.
+For example, the following code implements a dialog with a header, scrolling content area and
+buttons.
+    <md-dialog>
+      <h2>Header</h2>
+      <paper-dialog-scrollable>
+        Lorem ipsum...
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm>Accept</paper-button>
+      </div>
+    </md-dialog>
+### Styling
+See the docs for `Polymer.PaperDialogBehavior` for the custom properties available for styling
+this element.
+-->
+<style>
+    @media only screen and (max-width: 640px) and (min-width: 220px){
+        md-dialog{
+            width:95%;
+            height:300px;
+            top:5px;
+            left:5px;
+            font-size:14px;
+        }
+    }
+    md-dialog{
+        display:none;
+    }
+    .ui-modal{
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width:100%;
+        height:100%;
+    }
+</style>
+<dom-module id="md-dialog">
+    <style>
+        :host {
+            font-family:'Roboto';
+            width:500px;
+            height:400px;
+            background:#fff;
+            padding:1em;
+            box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
+            position:fixed;
+            z-index:99999999;
+            left:calc(50% - 250px);
+            top:calc(50% - 200px);
+        }
+        :host>.dialog-content-container{
+            display:-webkit-flex;
+            display:flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            height:100%
+        }
+        :host>.dialog-content-container>.content-container{
+            height:100%;
+            overflow-y: auto;
+            overflow-x:hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        :host>.dialog-content-container>.bottom{
+            margin-top:auto;
+            display:-webkit-flex;
+            display:flex;
+            -webkit-justify-content:flex-end;
+            justify-content:flex-end;
+        }
+        :host>.dialog-content-container>.bottom>button{
+            background:none;
+            padding: .5em .6em;
+            border:0;
+            position:relative;
+        }
+        :host ::content textarea{
+            resize:none;
+        }
+    </style>
+    <template>
+        <div class="dialog-content-container" id="dialogContentContainer">
+            <div class="content-container">
+                <content></content>
+            </div>
+            <div class="bottom">
+                <button id="dialog-button-cancel" cancel><span>[[cancel]]</span><paper-ripple></paper-ripple></button>
+                <button id="dialog-button-action" action><span>[[action]]</span><paper-ripple></paper-ripple></button>
+            </div>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    (function() {
+        Polymer({
+            is: 'md-dialog',
+            behaviors:[Elliptical.ComponentBehavior],
+            properties:{
+                isOpen: {
+                    type: Boolean,
+                    value:false
+                },
+                disableModal:{
+                    type:Boolean,
+                    value:false
+                },
+                modalBackground:{
+                    type:String,
+                    value:'#fff'
+                },
+                modalOpacity:{
+                    type:Number,
+                    value:0
+                },
+                modalZIndex:{
+                    type:Number,
+                    value:2000
+                },
+                width:{
+                    type:Number,
+                    value:null
+                },
+                height:{
+                    type:Number,
+                    value:null
+                },
+                cancel:{
+                    type:String,
+                    value:'Cancel'
+                },
+                action:{
+                    type:String,
+                    value:'Action'
+                },
+                hideAction:{
+                    type:Boolean,
+                    value:false
+                },
+                _id:{
+                    type:String,
+                    value:'dialog-1'
+                }
+            },
+            ready:function(){
+                this._setId();
+                this._setCss();
+                this._setAction();
+                var id=this.id;
+                if(id) this._listenerOn(id);
+                this._cancelListener();
+                if(!this.hideAction) this._actionListener();
+            },
+
+            detached:function(){
+                var id=this.id;
+                if(id) this._listenerOff(id);
+                this._cancelListenerOff();
+                if(!this.hideAction) this._actionListenerOff();
+            },
+
+            _listenerOn:function(){
+                var id=this.id;
+                var click=this._getClickEvent();
+                $(document).on('[dialog="' + id + '"]',click,this.open.bind(this));
+            },
+
+            _listenerOff:function(){
+                var id=this.id;
+                var click=this._getClickEvent();
+                $(document).off('[dialog="' + id + '"]',click,this.open.bind(this));
+            },
+
+            _cancelListener:function(){
+                var click=this._getClickEvent();
+                $(this).on(click,'[cancel]',this.close.bind(this));
+            },
+
+            _actionListener:function(){
+                var click=this._getClickEvent();
+                $(this).on(click,'[action]',this._onAction.bind(this));
+            },
+
+            _cancelListenerOff:function(){
+                var click=this._getClickEvent();
+                $(this).off(click,'[cancel]',this.close.bind(this));
+            },
+
+            _actionListenerOff:function(){
+                var click=this._getClickEvent();
+                $(this).off(click,'[cancel]',this._onAction.bind(this));
+            },
+
+            _getClickEvent:function(){
+                return ('ontouchend' in document) ? 'touchstart' : 'click';
+            },
+
+            _setAction:function(){
+                if(this.hideAction){
+                    var action=this.element.find('[action]');
+                    action.hide();
+                }
+            },
+
+            _onAction:function(){
+                this._fireEvent('action');
+            },
+
+            _fireEvent:function(evt){
+                var data={
+                    id:this.id,
+                    target:this,
+                    action:this.action,
+                    content:this.$.dialogContentContainer
+                };
+                $(document).trigger('md.dialog.' + evt,data);
+            },
+
+            _renderOpened: function() {
+                this._renderModal();
+                this.style.display = 'block';
+                this._fireEvent('open');
+            },
+            _renderClosed: function() {
+                this._deleteModal();
+                this.style.display = 'none';
+                this._fireEvent('close');
+            },
+
+            _renderModal:function(){
+                if(!this.disableModal){
+                    var opts={
+                        zIndex:this.modalZIndex,
+                        background:this.modalBackground,
+                        opacity:this.modalOpacity
+                    };
+                    this._setModal(opts);
+                }
+            },
+
+            _deleteModal:function(){
+                if(!this.disableModal) this._removeModal();
+            },
+
+            _setId:function(){
+                var id=this.element.attr('id');
+                if(!id) this.element.attr('id',this._id);
+            },
+
+            _setCss:function(){
+                if(this._mq.touch){
+                    var viewportWidth=this._device.viewport.width;
+                    if(this.width) {
+                        if(this.width>viewportWidth) this.width=viewportWidth-20;
+                    }
+                    var viewportHeight=this._device.viewport.height;
+                    if(this.height){
+                        if(this.height > viewportHeight) this.height=viewportHeight-50;
+                    }
+                }
+                if(this.width){
+                    var width=this.width/2;
+                    this.element.css('width',this.width + 'px');
+                    this.element.css('left','calc(50% - ' + width + 'px)');
+                }
+                if(this.height){
+                    var height=this.height/2;
+                    this.element.css('height',this.height + 'px');
+                    this.element.css('top','calc(50% - ' + height + 'px)');
+                }
+            },
+
+            open:function(){
+                if (!this.isOpen) {
+                    this.isOpen = true;
+                    this._renderOpened();
+                }
+            },
+
+            close: function () {
+                if (this.isOpen) {
+                    this.isOpen = false;
+                    this._renderClosed();
+                }
+            },
+
+            setContent:function(html){
+                var content=this.element.find('.content-container');
+                content.html(html);
+            }
+
+        });
+    })();
+</script>

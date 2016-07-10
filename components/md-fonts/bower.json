@@ -1,0 +1,31 @@
+{
+  "name": "md-fonts",
+  "description": "Material Design Fonts",
+  "version":"1.0.3",
+  "main": "dist/md.fonts.css",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "material",
+    "design",
+    "icons"
+  ],
+  "homepage": "https://github.com/ellipticaljs/material-design-font",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "_index.scss",
+    "gulpfile.js",
+    "docs",
+    "stylesheets",
+    "package.json",
+    ".gitignore",
+    "sassdoc"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "md-dropdown",
+  "version": "1.2.0",
+  "authors": [
+    "S. Francis"
+  ],
+  "description": "Material design dropdown element",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "dropdown",
+    "md",
+    "material design"
+  ],
+  "main": "md-dropdown.html",
+  "license": "MIT",
+  "homepage": "https://github.com/EllipticalElements/md-dropdown/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "elliptical-polymer-behaviors": "~1.2.0",
+    "neon-animation": "PolymerElements/neon-animation#~1.2.2"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  }
+}

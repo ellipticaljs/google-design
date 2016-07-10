@@ -1,0 +1,38 @@
+<script>
+    (function (root, factory) {
+        root.Elliptical.Behaviors=root.Elliptical.Behaviors || {};
+        root.Elliptical.Behaviors.Checkbox=factory();
+    }(this, function () {
+
+
+        return {
+            __events:function(){
+                var self=this;
+                this._event(this.element,'change','input',function(event){
+                    self._resetSemanticState();
+                    self._onChange(event);
+                });
+            },
+
+            _onChange:function(event){
+                var eventType=this.event;
+                var element=$(event.currentTarget);
+                var checked=element.is(':checked');
+                var data={
+                    value:element.val(),
+                    checked:checked,
+                    id:element.attr('id'),
+                    name:element.attr('name')
+                };
+                this.element.trigger(eventType,data);
+                (checked) ? this.element.attr('checked','') : this.element.removeAttr('checked');
+            },
+
+            isChecked:function(){
+                var input=this.element.find('input');
+                return input.is(':checked');
+            }
+
+        };
+    }));
+</script>

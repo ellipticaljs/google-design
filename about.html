@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>Google Design Prototype</title>
+    <script src="components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="elements/app-footer/app-footer.html" id="footer-doc">
+    <link rel="import" href="vulcanized/import.html">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+</head>
+<body>
+<ui-container>
+    <app-header home-url="/" class="dark" background="#fbbc05" more-icon="rgba(0,0,0,.5)">
+        <h5 brand home>My Brand</h5>
+        <h4 touch-brand home>My Brand</h4>
+        <ui-menu>
+            <menu-item><a>Resources</a></menu-item>
+            <menu-item><a>News</a></menu-item>
+            <menu-item><a>Events</a></menu-item>
+            <menu-item><a href="about.html">About</a></menu-item>
+            <menu-item touch-menu-item="false" search><span class="icon-search"></span></menu-item>
+        </ui-menu>
+        <md-more icon-color="#fff">
+            <menu-item><a>Sign In</a></menu-item>
+            <menu-item><a>Sign Up</a></menu-item>
+        </md-more>
+        <h1 header-title>About</h1>
+    </app-header>
+    <section class="content">
+        <grid-row>
+            <grid-columns class="default-12">
+             <flex-content-container>
+                 <img src="images/ux-designer.svg">
+                 <div main>
+                     <h3>About Us</h3>
+                     <p>
+                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in pulvinar dui. Aliquam consectetur nisl quis egestas rutrum. Nullam eget sem aliquam, dignissim mi non, auctor metus. Etiam lobortis risus vitae cursus efficitur. Proin placerat, erat in blandit pellentesque, sem massa ultricies velit, ac faucibus diam dolor vel eros. Nam sit amet enim a turpis volutpat commodo. Nullam id interdum diam, vel hendrerit quam.
+                     </p>
+                     <p>
+                         Donec imperdiet euismod eros nec tristique. Aliquam tincidunt ligula non quam vestibulum, a aliquam nisi finibus. Aenean posuere blandit dignissim. Mauris eu scelerisque purus. Quisque in purus ut urna varius pharetra. Sed velit lorem, molestie finibus ullamcorper nec, auctor eu libero. Etiam tempor posuere risus id semper. Quisque diam eros, pretium id magna eu, blandit condimentum risus. Suspendisse et commodo sem. Nam lacinia ultrices neque vitae facilisis. In ante augue, viverra ac cursus eu, luctus vitae neque. Proin condimentum metus ipsum, a volutpat nisi tincidunt nec. Donec nisi orci, condimentum et fermentum sed, placerat euismod tellus. Nullam pellentesque lobortis tellus, in semper ligula aliquet at.
+                     </p>
+                     <p>
+                         <a>Follow Link One</a>
+                     </p>
+                     <p class="standard">
+                         <a>Follow Link Two</a>
+                     </p>
+                 </div>
+             </flex-content-container>
+
+            </grid-columns>
+        </grid-row>
+    </section>
+    <footer data-role="footer"></footer>
+</ui-container>
+<script src="scripts/footer.js"></script>
+</body>

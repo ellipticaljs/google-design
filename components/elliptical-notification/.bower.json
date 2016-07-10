@@ -1,0 +1,56 @@
+{
+  "name": "elliptical-notification",
+  "description": "notification service layer",
+  "version": "1.0.4",
+  "main": "",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "notification"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/ellipticaljs/notification",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "elliptical-class": "~1.0.7",
+    "paper-toast": "~1.2.1",
+    "md-dialog": "~1.2.0"
+  },
+  "_release": "1.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.4",
+    "commit": "95a29790d37fa60b582e7b5c2d234c200a4bc5d8"
+  },
+  "_source": "https://github.com/ellipticaljs/notification.git",
+  "_target": "~1.0.4",
+  "_originalSource": "elliptical-notification"
+}

@@ -1,0 +1,54 @@
+{
+  "name": "elliptical-dom-event",
+  "description": "DOM event module",
+  "version": "1.0.14",
+  "main": "dist/elliptical.dom.event.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "components"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/ellipticaljs/dom-event",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json",
+    "demo",
+    "build.json",
+    "bundle.json",
+    ".nvmrc",
+    ".eslintrc",
+    "bin",
+    "CHANGELOG.md",
+    "demos",
+    "stylesheets",
+    "_index.scss",
+    "bk"
+  ],
+  "dependencies": {
+    "jquery-extensions": "~1.0.7"
+  },
+  "_release": "1.0.14",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.14",
+    "commit": "e136fec43754b9c2150f29dc6f73e73ba6d77689"
+  },
+  "_source": "https://github.com/ellipticaljs/dom-event.git",
+  "_target": "~1.0.14",
+  "_originalSource": "elliptical-dom-event"
+}

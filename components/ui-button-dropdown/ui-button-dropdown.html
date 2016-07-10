@@ -1,0 +1,48 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/dropdown.html">
+
+<script>
+
+    Polymer({
+
+        is: 'ui-button-dropdown',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Dropdown],
+
+        properties: {
+            mode:{
+                type:String,
+                value:'dropdown'
+            },
+            handleEvents:{
+                type:Boolean,
+                value:false
+            },
+            hideOnBlur:{
+                type:Boolean,
+                value:true
+            },
+            autoClose:{
+                type:Boolean,
+                value:false
+            }
+        },
+
+        ready:function(){
+            var dropdown = this.element.find('ui-dropdown');
+            if(!dropdown[0]){
+                dropdown=this.element.find('ui-mega-dropdown');
+            }
+            if(!dropdown[0]){
+                this._destroy();
+                return;
+            }
+            this._data.set('dropdown',dropdown);
+            this._focus();
+            this.__events();
+        }
+
+    });
+
+</script>

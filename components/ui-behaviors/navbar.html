@@ -1,0 +1,277 @@
+
+<script>
+    (function (root, factory) {
+        root.Elliptical.Behaviors=root.Elliptical.Behaviors || {};
+        root.Elliptical.Behaviors.Navbar=factory();
+    }(this, function () {
+
+        return {
+
+            /**
+             * @private
+             */
+            _setData: function () {
+                this._data.set('height', null);
+                this._data.set('drawer', null);
+                this._data.set('input', null);
+                this._data.set('touchInput', null);
+                this._data.set('open', false);
+                this._data.set('toggle', null);
+                this._data.set('element', null);
+            },
+
+            /**
+             * private method to show the drawer menu
+             * @private
+             */
+            _show: function () {
+                if(this._mq.touch && !this._data.get('open') && this._data.get('drawer')){
+                    var self = this;
+                    this._triggerEvent('showing', {});
+                    this._data.set('open', true);
+                    var element = this.element;
+                    element.css({
+                        position: 'absolute'
+                    });
+                    var toggle = this._data.get('toggle');
+                    toggle.addClass('active');
+                    this._openDrawer(function () {
+                        self._triggerEvent('show', {});
+                    }, function(){
+                        self._hide();
+                    });
+                }
+            },
+
+            /**
+             * private method to hide drawer menu
+             * @private
+             */
+            _hide: function () {
+                if(this._mq.touch && this._data.get('open') && this._data.get('drawer')){
+                    var self = this;
+                    this._triggerEvent('hiding', {});
+                    this._data.set('open', false);
+                    var element = this.element;
+                    var toggle = this._data.get('toggle');
+                    toggle.removeClass('active');
+                    this._closeDrawer(function(){
+                        element.css({
+                            position: '',
+                            top:''
+                        });
+                        self._resetMenu();
+                        self._triggerEvent('hide', {});
+                    });
+                }
+            },
+
+
+            /**
+             *
+             * @private
+             */
+            _onOrientationChange:function(){
+                if (this._mq.touch) {
+                    var currHeight = this._device.viewport.height;
+                    var height = this._data.get('height');
+                    if (height != currHeight) {
+                        if (this._data.get('open')) this._hide();
+                    }
+                    this._data.set('height', currHeight);
+                }
+            },
+
+            /**
+             *
+             * @private
+             */
+            _onScrollTop:function(){
+                var self=this;
+                setTimeout(function () {
+                    self._show();
+                }, self.touchDelay)
+            },
+
+            /**
+             *
+             * @param {string} query
+             * @param {object} mq
+             * @private
+             */
+            _onMediaQuery: function(query,mq){
+                if(query==='touch'){
+                    if (mq.matches) {
+                        //create navigation
+                        this._createTouchNavigation(this.element, this.dataClass);
+                        //reset open state
+                        this._data.set('open', false);
+                        //bind the events
+                        this._menuEvents();
+                    }
+                }else{
+                    if (mq.matches) {
+                        //reset open state
+                        this._data.set('open', false);
+                        //remove navigation
+                        this._removeTouchNavigation(this.element);
+                    }
+                }
+            },
+
+
+            /**
+             * element desktop events
+             * @private
+             */
+            _desktopEvents: function () {
+                /* events for desktop testing */
+                //desktop 'resize'
+                var self = this;
+
+                //media queries to fire build,destroy drawer on screen change
+                var mq = window.matchMedia(this._mq.touchQuery);
+                mq.addListener(function () {
+                    self._onMediaQuery('touch',mq)
+                });
+                var mql = window.matchMedia(this._mq.desktopQuery);
+                mql.addListener(function () {
+                    self._onMediaQuery('desktop',mql);
+                });
+            },
+
+            /**
+             *
+             * @param {object} event
+             * @param {string} tag
+             * @private
+             */
+            _onTouchMenuEvent:function(event,tag){
+                event.preventDefault();
+                var item = $(event.target);
+                this._touchMenuItem(item);
+            },
+
+            /**
+             * link element triggers location or a dev handled event
+             * @param a {object} link element
+             * @param handleTouchEvents {Boolean}
+             * @private
+             */
+            _touchMenuItem:function(a,handleTouchEvents){
+                var self=this;
+                var duration=(this.options) ? this.options.transformDuration : this.transformDuration;
+                duration+=100;
+                var href = a.attr('href');
+
+                /* close the drawer */
+                this._hide();
+
+                //if href, location redirect
+                if (typeof href != 'undefined' && href != '#') {
+                    /* trigger location after the drawer has closed */
+                    setTimeout(function(){
+                        self._location(href);
+                    },duration);
+                }
+            },
+
+
+            /**
+             * toggles touch sub-menu
+             * @param item {Object}
+             * @private
+             */
+            _touchToggleDropdown:function(item){
+                var selector=this.__dropdownSelector();
+                var dropdown=item.find(selector);
+                if (dropdown.hasClass('show')) {
+                    item.removeClass('close');
+                    dropdown.removeClass('show');
+                } else {
+                    item.addClass('close');
+                    dropdown.addClass('show');
+                }
+            },
+
+
+            /**
+             * element touch menu events
+             * @private
+             */
+            _touchMenuEvents: function () {
+                var self = this;
+                var drawer = this._data.get('drawer');
+                if (!drawer) {
+                    return false;
+                }
+                var click=(this._device.touch) ? 'tap' : 'click';
+                this._event(drawer,click,'menu-item-dropdown:not(touch-ui-dropdown)',function(event){
+                    self._touchToggleDropdown($(event.target));
+                });
+
+                if(this.touchEvents){
+                    this._event(drawer,this._data.click,'touch-ui-menu>menu-item>a',function(event){
+                        self._onTouchMenuEvent(event);
+                    });
+                }
+            },
+
+            /**
+             *
+             * @private
+             */
+            _unbindMQListeners:function(){
+                var self = this;
+                var mq = window.matchMedia(this._.mq.touchQuery);
+                mq.removeListener(function () {
+                    self._onMediaQuery('touch',mq)
+                });
+                var mql = window.matchMedia(this._mq.desktopQuery);
+                mql.removeListener(function () {
+                    self._onMediaQuery('desktop',mql);
+                });
+            },
+
+            /**
+             *
+             * @private
+             */
+            _dispose:function(){
+                var input = this._data.get('input');
+                var touchInput = this._data.get('touchInput');
+                if (input) {
+                    this._unbindSearch(input);
+                }
+                if (touchInput) {
+                    this._unbindSearch(touchInput);
+                }
+
+                this._unbindMQListeners();
+            },
+
+
+            /*==========================================
+             PUBLIC METHODS
+             *===========================================*/
+
+            /**
+             * public method to show drawer menu
+             * @public
+             */
+            show: function () {
+                var navScrollTop='navScrollTop' + this.eventNamespace;
+                this._scrollTop(0, navScrollTop);
+            },
+
+            /**
+             * append menu items from model
+             * @public
+             */
+            addMenuModel: function(model){
+                this._addMenuModel(model);
+            }
+
+        };
+    }));
+</script>

@@ -1,0 +1,68 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ui-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/tabs.html">
+
+<script>
+
+    Polymer({
+
+        is: 'ui-tabs',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Tabs],
+
+        properties: {
+            border: {
+                type:Boolean,
+                value:false
+            },
+            borderTop: {
+                type:Boolean,
+                value:false
+            },
+            borderLeft: {
+                type:Boolean,
+                value:false
+            },
+            minHeight: {
+                value:null
+            },
+            animateSections: {
+                type:Boolean,
+                value:false
+            },
+            duration: {
+                value:500
+            },
+            flex: {
+                type:Boolean,
+                value:false
+            },
+            preventDefault: {
+                type:Boolean,
+                value:false
+            },
+            autoHide: {
+                type:Boolean,
+                value:true
+            },
+            stopPropagation: {
+                type:Boolean,
+                value:true
+            }
+
+        },
+
+        ready:function(){
+            this._setData();
+            this._getTabs();
+            this._initActiveTab();
+            this._getContentSections();
+            this._minHeight();
+            this._setStyles();
+            this._removeStackedTabs();
+            this.__events();
+        }
+
+    });
+
+</script>

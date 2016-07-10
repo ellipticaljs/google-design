@@ -1,0 +1,34 @@
+{
+  "name": "elliptical-controller",
+  "description": "es2015 Controller Class for an expressJS style application function",
+  "version":"2.0.2",
+  "main": "dist/elliptical.controller.js",
+  "authors": [
+    "S. Francis"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Controller",
+    "factory"
+  ],
+  "moduleType": [],
+  "homepage": "https://github.com/ellipticaljs/controller",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "lib",
+    "docs",
+    "index.js",
+    "umd.js",
+    "package.json"
+  ],
+  "dependencies": {
+
+  }
+}

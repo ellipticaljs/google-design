@@ -1,0 +1,116 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../elliptical-polymer-behaviors/component-behavior.html">
+
+
+<dom-module id="ui-input-addon">
+    <template>
+        <input type="text" placeholder="[[placeholder]]">
+        <div class="ui-button"><span></span></div>
+    </template>
+</dom-module>
+
+<script>
+
+    Polymer({
+
+        is: 'ui-input-addon',
+
+        behaviors:[Elliptical.ComponentBehavior],
+
+        properties: {
+            placeholder:{
+                type:String,
+                value:''
+            },
+            dataName:{
+                type:String,
+                value:null
+            },
+            dataId:{
+                type:String,
+                value:null
+            },
+            buttonClass:{
+                type:String,
+                value:null
+            },
+            iconClass:{
+                type:String,
+                value:null
+            },
+            buttonLabel:{
+                type:String,
+                value:null
+            },
+            dataValue:{
+                type:String,
+                value:null
+            }
+
+        },
+
+        ready:function(){
+            this._setValueProp();
+            this._setIconClass();
+            this._setButtonClass();
+            this._setId();
+            this._setName();
+            this._setButtonLabel();
+            this._setValue();
+        },
+
+        _setValueProp:function(){
+            var element=this.element;
+            var node=this;
+            Object.defineProperty(node, 'value', {
+                get: function() { return element.find('input').val(); },
+                set: function(newValue) { element.find('input').val(newValue); },
+                enumerable: true,
+                configurable: true
+            });
+        },
+
+        _setIconClass:function(){
+            if(this.iconClass){
+                var span=this.querySelector('span');
+                span.classList.add(this.iconClass);
+            }
+        },
+
+        _setButtonClass:function(){
+            if(this.buttonClass){
+                var button=this.querySelector('ui-button');
+                button.classList.add(this.buttonClass);
+            }
+        },
+
+        _setId:function(){
+            if(this.dataId){
+                var input=this.element.find('input');
+                input.attr('id',this.dataId);
+            }
+        },
+
+        _setName:function(){
+            if(this.dataName){
+                var input=this.element.find('input');
+                input.attr('name',this.dataName);
+            }
+        },
+
+        _setButtonLabel:function(){
+            if(this.buttonLabel){
+                var span=this.element.find('span');
+                span.text(this.buttonLabel);
+            }
+        },
+
+        _setValue:function(){
+            if(this.dataValue){
+                this.value=this.dataValue;
+            }
+        }
+
+    });
+
+</script>
