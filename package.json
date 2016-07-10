@@ -1,6 +1,6 @@
 {
   "name": "google-design",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "google design web components simple starter project",
   "main": "./public/index.html",
   "scripts": {
@@ -18,6 +18,10 @@
     "sass-ubuntu": "git+https://github.com/ellipticaljs/sass-ubuntu.git"
   },
   "devDependencies": {
+    "babel-plugin-transform-es2015-modules-umd": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-3": "^6.5.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "elliptical-gulp": "git+https://github.com/ellipticaljs/gulp.git",
     "elliptical-scaffold": "git+https://github.com/ellipticaljs/scaffold.git",
     "gulp": "^3.8.7",
