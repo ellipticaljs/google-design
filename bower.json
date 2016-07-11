@@ -1,7 +1,7 @@
 {
   "name": "google-design",
   "description": "google design web components simple starter project",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "public/index.html",
   "authors": [
     "Scott <sfrancis@misinteractive.com>"
