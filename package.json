@@ -1,6 +1,6 @@
 {
   "name": "google-design",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "google design web components simple starter project",
   "main": "./public/index.html",
   "scripts": {
