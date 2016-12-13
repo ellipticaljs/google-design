@@ -57,6 +57,10 @@ gulp.task('app-imports', function () {
     tasks.appImports();
 });
 
+gulp.task('app-native-imports', function () {
+    tasks.appNativeImports();
+});
+
 gulp.task('watch', function () {
     tasks.watch();
 });
