@@ -37,7 +37,7 @@ gulp.task('sass-compile', function () {
     tasks.sassCompile();
 });
 
-gulp.task('sass-compile-min', function () {
+gulp.task('css-minify', function () {
     tasks.sassCompileMin();
 });
 
